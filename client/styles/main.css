@@ -1,0 +1,140 @@
+html {
+	height: 100%;
+	overflow: hidden;
+}
+body {
+	min-height: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	background:black;
+}
+
+input[type="text"]
+{
+    background: transparent;
+    border: none;
+}
+
+.center-auto{
+	position:absolute;
+	top:0;
+	right:0;
+	left:0;
+	bottom:0;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+}
+
+.login{
+	width:300px;
+	height:300px;
+	position:absolute;
+	top:0;
+	right:0;
+	left:0;
+	bottom:0;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+}
+
+.leaderboard{
+	width:200px;
+	height:300px;
+	position:absolute;
+	top:0;
+	right:0;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+}
+
+.xp{
+	width:50;
+	height:50;
+	position:absolute;
+	bottom:.5em;
+	left:.5em;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+	color: white;
+	font-size:5em;
+}
+
+.stat{
+	color: white;
+}
+
+.character-name{
+	width:250px;
+	text-align: center;
+	height:100px;
+	position:absolute;
+	top:4em;
+	right:0;
+	left:0;
+	bottom:0;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+	font-size:1.7em;
+}
+
+.login-button{
+	width:100px;
+	height:50px;
+	position:absolute;
+	right:0;
+	left:0;
+	bottom:0;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+}
+
+.dead{
+	height:67px;
+	width:100%;
+	position:absolute;
+	right:0;
+	left:0;
+	bottom:0;
+	top:0;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:auto;
+	margin-top:auto;
+	background:rgba(0,0,0,0.5);
+}
+
+.hide{
+	display:none;
+}
+
+.show{
+	display:block;
+}
+
+.on-top{
+	z-index:100;
+}
+
+.on-bottom{
+	z-index:-1;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
