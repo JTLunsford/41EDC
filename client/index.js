@@ -1,24 +1,33 @@
 const styles = require("./styles/main.css");
 const PIXI = require('pixi.js');
-const keyboard = require('pixi-keyboard');
+const keyboard = require('keypress.js');
 const TWEEN = require('tween.js');
 const Vector = require('victor');
+const player = require('./player');
+const layers = require('./layers');
+const loop = require('./loop');
+const dungeon = require('./dungeon');
 
-const game = {
-    PIXI:PIXI,
-    TWEEN:TWEEN,
-    Vector:Vector
-}
+class Game extends require('iron-beam').EventEmitter {}
+
+const game = Object.assign(new Game(),{
+    pixi:PIXI,
+    tween:TWEEN,
+    vector:Vector
+});
+game.pixi.settings.SCALE_MODE = 'nearest';
 game.gameCanvas = document.getElementById('game');
 game.config = {
+	"animationSpeed": 0.1,
 	"debugBounds": false,
 	"stt": 50,
 	"fps": 60,
 	"lerpTime": 50,
 	"maxDepth": 9,
+	"baseGrid": 8,
 	"world": {
-		"height": 10240,
-		"width": 10240,
+		"height": 8 * 8 * 8 * 8,
+		"width": 8 * 8 * 8 * 8,
 		"resources": {
 			"randomCount": 5000
 		},
@@ -44,18 +53,15 @@ game.config = {
 		}
 	},
 	"player": {
-		"width": 150,
-		"height": 150,
-		"shoulderHeight": 25,
 		"query": {
-			"width": 1440,
-			"height": 900,
+			"width": 8 * 8,
+			"height": 8 * 8,
 			"offsetY": -100
 		},
 		"speed": {
-			"base": 16
+			"base": 8
 		},
-		"health": 10
+		"health": 8
 	},
 	"weapon": {
 		"melee": {
@@ -63,8 +69,7 @@ game.config = {
 			"height": 131,
 			"thrust": {
 				"distance": 75,
-				"cooldown": 325,
-				"damage": 1
+				"damage": 8
 			}
 		}
 	},
@@ -100,27 +105,54 @@ game.config = {
 };
 
 game.renderer = new PIXI.WebGLRenderer(
-	config.player.query.width,
-	config.player.query.height,{
-	view: gameCanvas,
+	game.config.player.query.width,
+	game.config.player.query.height,{
+	view: game.gameCanvas,
 	resolution:1,
 	antialiasing: true, 
-	backgroundColor: 0x009900,
+	backgroundColor: 0x000000,
 	autoResize: true
 });
 
-game.ratio = config.player.query.width / config.player.query.height;
+game.ratio = game.config.player.query.width / game.config.player.query.height;
 
-game.states = { 
-    
+function resizeRenderer(){
+	// if (window.innerWidth / window.innerHeight >= game.ratio) {
+ //       var w = window.innerHeight * game.ratio;
+ //       var h = window.innerHeight;
+ //   } else {
+ //       var w = window.innerWidth;
+ //       var h = window.innerWidth / game.ratio;
+ //   }
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+    game.renderer.view.style.width = w + 'px';
+    game.renderer.view.style.height = h + 'px';
+    game.renderer.resize(w,h);
 }
+
+resizeRenderer();
+window.onresize = resizeRenderer;
 
 game.loaded = (loader,assets)=>{
     game.loader = loader;
     game.assets = assets;
+    game.emit('assetsLoaded');
 };
 
-game.PIXI.loader
-	.add('font', './assets/41EDC_Font.json')
-	.add('sprites', './assets/41EDC_SpriteSheet.json')
-	.load(game.start);
+game.on('assetsLoaded',()=>{
+	layers(game);
+	player(game);
+	dungeon(game);
+	loop(game);
+});
+
+game.on('loadState.*',()=>{
+	console.log('clearing state');	
+});
+
+
+game.pixi.loader
+	.add('f', './assets/41EDC_Font.json')
+	.add('s', './assets/41EDC_SpriteSheet.json')
+	.load(game.loaded);

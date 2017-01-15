@@ -5,8 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "./node_modules/.bin/webpack",
-    "watch-ui": "./node_modules/.bin/webpack -w"
+    "webpack": "webpack",
+    "live": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,6 @@
   },
   "homepage": "https://github.com/JTLunsford/41EDC#readme",
   "devDependencies": {
-    "rbush": "^2.0.1",
-    "victor": "^1.1.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
@@ -36,17 +34,20 @@
     "glslify-loader": "^1.0.2",
     "html-webpack-plugin": "^2.21.0",
     "ignore-loader": "^0.1.1",
+    "iron-beam": "*",
     "json-loader": "^0.5.4",
     "node-sass": "^3.8.0",
-    "pixi-keyboard": "^0.9.4",
     "pixi-lights": "git+ssh://git@github.com/pixijs/pixi-lights.git",
-    "pixi.js": "^3.0.11",
+    "keypress.js": "git+ssh://git@github.com:dmauro/Keypress.git",
+    "pixi.js": "*",
     "raw-loader": "^0.5.1",
+    "rbush": "^2.0.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "transform-loader": "^0.2.3",
     "tween.js": "^16.3.4",
-    "webpack": "^1.13.1",
-    "iron-beam": "*"
+    "victor": "^1.1.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }
